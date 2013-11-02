@@ -21,45 +21,31 @@ The data itself features many components tracked over time, including but not li
 \item Throttle Lever Position
 \end{itemize}
 
-As is probably evident, analyzing this largely numeric data by itself would be a painstaking task. Primarily because finding patterns in numbers through observation is inherently difficult. Also because the data set is of a substantially large size \footnote{I will be cautious before calling it `Big Data`. }. \\
+As is probably evident, analyzing this largely numeric data by itself would be a painstaking task. Primarily because finding patterns in numbers through observation is inherently difficult. Also because the data set is of a substantially large size \footnote{I will be cautious before calling it ``Big Data''. }. \\
 
 Therefore the need for a tool to visualise this data becomes immediately obvious. \\
 
+The Air Accident Investigation Board (AAIB), a branch of Singapore's Ministry of Transport performs analysis on such flight data, and requested an application that would render relevant flight data quickly and in a portable manner. \\
 
+\section{System Requirements}
 
-\paragraph{Important Note:} Some things of this style might look unusual at first glance, many people feel so in the beginning. However, all things are intentionally designed to be as they are, especially these:
-\begin{itemize}
-\item No bold fonts are used. Italics or spaced small caps do the job quite well.
-\item The size of the text body is intentionally shaped like it is. It supports both legibility and allows a reasonable amount of information to be on a page. And, no: the lines are not too short.
-\item The tables intentionally do not use vertical or double rules. See the documentation for the \texttt{booktabs} package for a nice discussion of this topic.\footnote{To be found online at \\ \url{http://www.ctan.org/tex-archive/macros/latex/contrib/booktabs/}.}
-\item And last but not least, to provide the reader with a way easier access to page numbers in the table of contents, the page numbers are right behind the titles. Yes, they are \emph{not} neatly aligned at the right side and they are \emph{not} connected with dots that help the eye to bridge a distance that is not necessary. If you are still not convinced: is your reader interested in the page number or does she want to sum the numbers up?
-\end{itemize}
+AAIB needed the application to meet certain criterias and contain certain core features. These included:
 
-\noindent Therefore, please do not break the beauty of the style by changing these things unless you really know what you are doing! Please.
+\begin{enumerate}
+  \item \spacedlowsmallcaps{Google Earth} Compatibility. Google Earth is a popular ``virtual globe, map and geographic information program''. It provides detailed 3d projections of Google's satellite images on a spherical globe, overlaid with huge quantities of textual and pictorial data varying from international boundaries to streets. There are many good reasons for this requirement including:
+    \begin{itemize}
+      \item Cross Platform. It works and is supported on Windows, OSX and Linux \footnote{Atleast the desktop version is supported on all three major Operating Systems.}
+      \item Extensible through the Keyhole Markup Language (KML) \footnote{A lot more on this later}
+      \item Free\footnote{As in beer, not speech}
+      \item AAIB's familiarity with it
+      \item Offline use. This is quite important as internet access is not guranteed on accident sites
+    \end{itemize}
+  \item \spacedlowsmallcaps{CSV}\footnote{Comma Separated Values} based input. The system should be able to use large datasets encoded in CSV.
+  \item  The system should display the data in its geographical location as vectors. The visualization should be able to reflect the actual data in an intuitive way. For instance, vectors at each data point should represent roll, heading, engine throttle
+  \item Users should be able to select which vectors they want to view.
+  \item The data points should be manually adjustable from within google earth. This is particularly relevant for data points near landing strips, where measurement errors may cause an offset in the rendered visualization
 
-%----------------------------------------------------------------------------------------
-
-\section{Organization}
-A very important factor for successful thesis writing is the organization of the material. This template suggests a structure as the following:
-\begin{itemize}
-\marginpar{You can use these margins for summaries of the text body\dots}
-\item\texttt{Chapters/} is where all the ``real'' content goes in separate files such as \texttt{Chapter01.tex} etc.
-\item\texttt{FrontBackMatter/} is where all the stuff goes that surrounds the ``real'' content, such as the acknowledgments, dedication, etc.
-\item\texttt{gfx/} is where you put all the graphics you use in the thesis. Maybe they should be organized into subfolders depending on the chapter they are used in, if you have a lot of graphics.
-\item\texttt{Bibliography.bib}: the Bib\TeX\ database to organize all the references you might want to cite.
-\item\texttt{classicthesis.sty}: the style definition to get this awesome look and feel. Bonus: works with both \LaTeX\ and \textsc{pdf}\LaTeX\dots and \mLyX.
-\item\texttt{ClassicThesis.tcp} a \TeX nicCenter project file. Great tool and it's free!
-\item\texttt{ClassicThesis.tex}: the main file of your thesis where all the content gets bundled together.
-\item\texttt{classicthesis-config.tex}: a central place to load all nifty packages that are used. In there, you can also activate backrefs in order to have information in the bibliography about where a source was cited in the text (\ie, the page number).
-
-\emph{Make your changes and adjustments here.} This means that you specify here the options you want to load \texttt{classicthesis.sty} with. You also adjust the title of your thesis, your name, and all similar information here. Refer to \autoref{sec:custom} for more information.
-
-This had to change as of version 3.0 in order to enable an easy transition from the ``basic'' style to \mLyX.
-\end{itemize}
-
-\noindent In total, this should get you started in no time.
-
-%----------------------------------------------------------------------------------------
+\end{enumerate}
 
 \section{Style Options}\label{sec:options}
 
