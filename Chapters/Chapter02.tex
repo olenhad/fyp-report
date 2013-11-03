@@ -1,11 +1,12 @@
 % Chapter 2
 
-\chapter{Literature Review} % Chapter title
+\chapter{Rendering Strategies} % Chapter title
 
-\label{ch:literature review} % For referencing the chapter elsewhere, use \autoref{ch:examples}
+\label{ch:rendering strategies} % For referencing the chapter elsewhere, use \autoref{ch:examples}
 
 As with any project, the first few stages of the project involved researching on existing technologies that either implemented the features specified in by AAIB in their requirements, or aided in developing those features. As Google Earth compatibility was a major requirement for the project, my research started with exploring
 methods to render custom data on Google Earth's platform.
+
 
 \section{Keyhole Markup Language}
 
@@ -21,87 +22,37 @@ KML supports rendering the following features:
   \item Polygons
 \end{enumerate}
 
+KML uses latitudes and longtitudes as a coordinate system for positioning elements, which works very well with geographic data. \\
+However KML is primarily designed as a means to display data, as opposed to performing interactions with the data. The only interactions it allows are those that Google Earth features, i.e. zooming, panning and moving to a certain point on the globe. Clicking on placemarks with descriptions opens a modal that renders the description, which can be written in a subset of HTML. \\
 
-%------------------------------------------------
+\section{Google Earth's Browser Plugin}
 
-\subsection{Test for a Subsection}
+With web browsers becoming increasingly powerful and technologies like WebGL that allow efficient 3d rendering on the browser, Google launched the Google Earth Browser Plugin. The browser plugin by itself allows pretty much the similar core functionality as Google Earth's Desktop Application. The primary difference is that the virtual globe can be embedded within an HTML web page.\\
 
-\graffito{Note: The content of this chapter is just some dummy text.}
-\lipsum[3-5]
+By itself the browser plugin may not seem to accomplish much. However Google also released the Google Earth
+API, a javascript library that provides access to various features in Google Earth. The browser plugin when combined with Google Earth's API becomes a very powerful tool to produce complex applications that render and allow interaction with geographic data. \\
 
-%------------------------------------------------
+For instance one of the sample toy applications provided as documentation for the API is a car simulator,
+where you drive a car over the virtual globe's surface. \\
 
-\subsection{Autem Timeam}
+Such user interactions are possible by combining interactions provided by the DOM, and using them to render models using the Google Earth API. \\
 
-\lipsum[6]
+However, the browser plugin is not a silver bullet. One of it's most lacking features is offline usage. The browser plugin does not work offline, unlike the desktop application which caches data for offline use.
 
-%----------------------------------------------------------------------------------------
 
-\section{Another Section in This Chapter}
+\section{Choosing a rendering strategy}
 
-\lipsum[7]
+After researching on rendering methods available I had to choose which method was a better fit for this project. From my research the following rendering strategies seemed initially viable:
 
-Sia ma sine svedese americas. Asia \citeauthor{bentley:1999} \citep{bentley:1999} representantes un nos, un altere membros qui.\footnote{De web nostre historia angloromanic.} Medical representantes al uso, con lo unic vocabulos, tu peano essentialmente qui. Lo malo laborava anteriormente uso.
+\begin{enumerate}
+\item Generate KML and use it's Path and Polygon constructs to render the various vectors that AAIB requested
+\item Use Google Earth's javascript API to render the same data.
+\end{enumerate}
 
-\begin{description}
-\item[Description-Label Test:] \lipsum[8]
-\item[Label Test 2:] \lipsum[9]
-\end{description}
+After revisiting AAIB's application requirements, I decided that between producing KML and using Google Earth
+s Browser Plugin, generating KML was a significantly better option. The rationale guiding the decision was based on the following factors:
 
-\noindent This statement requires citation \citeauthor{cormen:2001} \citep{cormen:2001}.
-
-%------------------------------------------------
-
-\subsection{Personas Initialmente}
-
-\lipsum[10]
-
-\subsubsection{A Subsubsection}
-\lipsum[11]
-
-\paragraph{A Paragraph Example} \lipsum[12]
-
-\begin{aenumerate}
-\item Enumeration with small caps
-\item Second item
-\end{aenumerate}
-
-\noindent Another statement requiring citation \citeauthor{sommerville:1992} \citep{sommerville:1992} but this time with text after the citation.
-
-\begin{table}
-\myfloatalign
-\begin{tabularx}{\textwidth}{Xll} \toprule
-\tableheadline{labitur bonorum pri no} & \tableheadline{que vista}
-& \tableheadline{human} \\ \midrule
-fastidii ea ius & germano &  demonstratea \\
-suscipit instructior & titulo & personas \\
-\midrule
-quaestio philosophia & facto & demonstrated \citeauthor{knuth:1976} \\
-\bottomrule
-\end{tabularx}
-\caption[Autem timeam deleniti usu id]{Autem timeam deleniti usu id. \citeauthor{knuth:1976}}
-\label{tab:example}
-\end{table}
-
-\enlargethispage{2cm}
-
-%------------------------------------------------
-
-\subsection{Figure Citations}
-Veni introduction es pro, qui finalmente demonstrate il. E tamben anglese programma uno. Sed le debitas demonstrate. Non russo existe o, facite linguistic registrate se nos. Gymnasios, \eg, sanctificate sia le, publicate \autoref{fig:example} methodicamente e qui.
-
-Lo sed apprende instruite. Que altere responder su, pan ma, \ie, signo studio. \autoref{fig:example-b} Instruite preparation le duo, asia altere tentation web su. Via unic facto rapide de, iste questiones methodicamente o uno, nos al.
-
-\begin{figure}[bth]
-\myfloatalign
-\subfloat[Asia personas duo.]
-{\includegraphics[width=.45\linewidth]{gfx/example_1}} \quad
-\subfloat[Pan ma signo.]
-{\label{fig:example-b}
-\includegraphics[width=.45\linewidth]{gfx/example_2}} \\
-\subfloat[Methodicamente o uno.]
-{\includegraphics[width=.45\linewidth]{gfx/example_3}} \quad
-\subfloat[Titulo debitas.]
-{\includegraphics[width=.45\linewidth]{gfx/example_4}}
-\caption[Tu duo titulo debitas latente]{Tu duo titulo debitas latente.}\label{fig:example}
-\end{figure}
+\begin{itemize}
+\item Offline usage. As mentioned before, the browser plugin does not feature offline usage. This is in contrast to rendering KML documents on Google Earth's Desktop client which works well offline. Considering offline usage was an important part of the application requirements, this was a major reason.
+\item Portability. KML is a well defined format that can be rendered on many other earth browsers. Furthermore, the browser plugin is only supported for Windows and Mac OS. Linux \footnote{Which I am a huge fan of} was not yet supported, and I did not want to add that constraint to the application without good reason. In contrast, Google Earth is supported on Windows, Mac OS and Linux.
+\end{itemize}
