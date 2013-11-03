@@ -1,20 +1,26 @@
 % Chapter 2
 
-\chapter{Examples} % Chapter title
+\chapter{Literature Review} % Chapter title
 
-\label{ch:examples} % For referencing the chapter elsewhere, use \autoref{ch:examples} 
+\label{ch:literature review} % For referencing the chapter elsewhere, use \autoref{ch:examples}
 
-%----------------------------------------------------------------------------------------
+As with any project, the first few stages of the project involved researching on existing technologies that either implemented the features specified in by AAIB in their requirements, or aided in developing those features. As Google Earth compatibility was a major requirement for the project, my research started with exploring
+methods to render custom data on Google Earth's platform.
 
-\lipsum[1]
+\section{Keyhole Markup Language}
 
-%----------------------------------------------------------------------------------------
+The Keyhole Markup Language (\emph{KML}) is a subset of XML, used to display geographic data in an Earth Browser, like Google Earth. It uses a tag based structure with nested elements that represent certain geometric
+and descriptive constructs. The KML reference is very reasonably documented with sample code demonstrating it's usage.\\
 
-\section{A New Section}
+KML supports rendering the following features:
+\begin{enumerate}
+  \item Placemarks
+  \item Descriptions
+  \item Ground Overlays
+  \item Paths
+  \item Polygons
+\end{enumerate}
 
-\lipsum[2]
-
-Examples: \textit{Italics}, \spacedallcaps{All Caps}, \textsc{Small Caps}, \spacedlowsmallcaps{Low Small Caps}\footnote{Footnote example.}.
 
 %------------------------------------------------
 
@@ -73,7 +79,7 @@ suscipit instructior & titulo & personas \\
 quaestio philosophia & facto & demonstrated \citeauthor{knuth:1976} \\
 \bottomrule
 \end{tabularx}
-\caption[Autem timeam deleniti usu id]{Autem timeam deleniti usu id. \citeauthor{knuth:1976}}  
+\caption[Autem timeam deleniti usu id]{Autem timeam deleniti usu id. \citeauthor{knuth:1976}}
 \label{tab:example}
 \end{table}
 
