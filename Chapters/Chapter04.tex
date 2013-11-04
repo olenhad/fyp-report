@@ -1,14 +1,32 @@
-% Chapter X
+% Chapter 4
 
-\chapter{Chapter Title} % Chapter title
+\chapter{Modelling The Problem} % Chapter title
 
-\label{ch:name} % For referencing the chapter elsewhere, use \autoref{ch:name} 
+\label{ch:model} % For referencing the chapter elsewhere, use \autoref{ch:name}
 
+As mentioned before, the core function of the application was to convert periodic flight data into a
+renderable 3d model. This section will detail the approach taken to model the various aspects of the flight data.\\
+
+
+\section{Inputs}
+
+As mentioned before
+
+\section{Constraints}
+
+A constraint that choosing KML placed on the model was that any coordinate could only be represented withe following dimensions:
+\begin{enumerate}
+\item Latitude ($\phi$)
+\item Longtitude ($\lambda$)
+\item Altitude (a)
+\end{enumerate}
+
+This implied that plotting polygons with KML would require converting to and fro between cartesian and spherical coordinate systems.
 %----------------------------------------------------------------------------------------
 
-\section{Section Title}
+\section{Flight Path}
 
-Content
+Plotting the flight path is the most straightforward
 
 %------------------------------------------------
 

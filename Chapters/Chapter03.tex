@@ -8,10 +8,70 @@ This decision took a while. And rightfully so, as it would affect all decisions 
 
 After quite a bit of research and debate, I decided to implement the system using \spacedlowsmallcaps{clojure}, a relatively new lisp class language than runs on the JVM.
 
-\section{Clojure?}
+\section{Clojure}
 
 The choice of implementing this project in clojure may seem peculiar. However there are a number of features that clojure and it's ecosystem that fit very well with this particular project. Before jumping to those features, a quick overview of clojure is in order.\\
 
 Clojure is a lisp dialect, created by Rich Hickey. It is a general-purpose, functional programming language that runs on the Java Virtual Machine (JVM) \footnote{Clojure runs in other environments like Microsoft's Common Language Runtime (CLR) and Javascript engines as well}. Clojure focuses on programming with immutable data structures and provides a number of persistent hash-trie based data structures that allow efficient functional programming.\\
 
-Clojure was designed to be a real world language, as opposed to a purely academic one.
+Clojure was designed to be a real world language, as opposed to a purely academic one. Therefore it integrates seamlessly with it's host environment. For the JVM that means java interoperability is very straightforward. This also means that all existing libraries and frameworks for Java can be used with Clojure.\\
+
+The decision to choose Clojure as the main language for implementing this project was based on the
+following features of clojure
+
+\subsection{Functional Programming}
+
+Clojure is foremost a functional programming language. That means the core logic of any application is implemented as a series of pure functions that return immutable values. Pure here means that functions do not return different values for the same set of inputs. The paradigm also involves treating functions as first class members that can be passed around as values. \\
+
+As mentioned before, my strategy to rendering the data was to convert it into an appropriate form in KML. This operation in essense is a pure function that consumes a set of inputs and performs several transformations on it to return a KML document. \\
+
+In other words, there is not state involved. For a given set of data, the output never changes. The transformation operation does not need any side-effects like doing IO or mutating variables.\\
+
+Furthermore clojure idioms encourage the use of higher order functions that make code succint. I personally enjoy writing programs in a functional style, as opposed to an object oriented style, which despite it's merits can tend to overuse mutation.
+
+\subsection{Libraries}
+
+Library support is probably one of the most important factors in deciding the stack for any project. Since part of the system involved generating xml, a fast, xml processing library was a must. Similarly, on the parsing side, even though parsing csv files is trivial, the parsing needed to be done in a performant manner, especially when the data sets might be very large. Also, the input data format could change in other scenarios, and having a decent set of parsing tools for more advanced grammars (JSON, XML) makes a lot of sense.\\
+
+On both counts clojure scores very well. In terms of xml processing, clojure.data.xml provides  a decently documented, clean api which can lazily parse and generate large xml documents. Under the hood its uses Java's STAX library.\\
+
+But in addition to xml generation and parsing, clojure also provides a very neat library called clojure.data.zip for performing queries and transforms on generic tree like structures. clojure.data.zip, as the name suggests uses Zippers to functionally traverse and modify trees.\\
+
+
+\subsection{Domain Specific Languages}
+
+Building Domain Specific Languages (DSLs) is where lisp like languages are reputed to shine. Lisp's homoiconicity, and the ability to treat code as data helps quite a bit here. Clojure is no exception to this rule, and features many rich DSLs.\\
+
+The need for a DSL particularly arose when dealing with XML generation. As the application required generating KML, which is a subset of XML, finding a tool that eases it's generation was paramount. XML by itself is not ``designed for humans''. The syntax is verbose, repetitive and prone to errors.\\
+
+Representing XML data as raw strings can be incredibly messy and error prone, as there is no way to gurantee the validity of document structure. Forgetting or misplacing closing tags can lead to bugs, that would be very difficult to find if the generated XML document is complex. Considering the application was meant to generate reasonably complex KML documents, using raw strings was to be avoided at all costs.\\
+
+Enter Hiccup, a very popular DSL that represents XML using clojure's vectors and hash-maps. Although originally just designed for HTML, the DSL became so popular that most of clojure's XML libraries support it. \\
+
+The following snippet compares raw KML with the equivalent Hiccup representation:\\
+
+\begin{lstlisting}[language=XML,caption= A simple placemark in raw KML]
+<Placemark>
+  <name> Simple Placemark  </name>
+  <Polygon>
+    <extrude>0
+    </extrude>
+    <outerBoundaryIs>
+    </outerBoundaryIs>
+  </Polygon>
+</Placemark>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Lisp, caption= The equivalent placemark with hiccup. Notice the brevity and lack of repetition]
+[:Placemark
+  [:name ``Simple Placemark'']
+  [:Polygon
+    [:extrude ``0'']
+    [:outerBoundaryIs]]]]
+\end{lstlisting}
+
+As is evident, the sample using hiccup is far more succint. This becomes even more evident when the size of the document increases. \\
+
+However hiccup is not only useful because of it's brevity. It's killer feature is the fact that the representation is simply a clojure vector, which can be manipulated as a proper tree like data structure. This reduces XML generation to manipulating clojure vectors, which is signifigantly easier.\\
+
+Another major feature that hiccup brings is composibility. Because I just have to deal with clojure vectors, I can make small functions that produce base components of the document and compose them together to form more advanced forms. This is very powerful and much more elegant than the naive approach of concatenating XML strings together. \\
