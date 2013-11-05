@@ -10,7 +10,17 @@ renderable 3d model. This section will detail the approach taken to model the va
 
 \section{Inputs}
 
-As mentioned before
+The dataset AAIB provided, contained the following measurements, recorded over time t.
+\begin{enumerate}
+  \item Magnetic Heading $\theta_{m}(t)$. Measures the direction of the aircraft with respect to the north pole. Measured in degrees
+  \item Pressure Altitude $a(t)$. Indicated altitude, measured in feet
+  \item GPS Latitude $\phi(t)$. Measured in degrees
+  \item GPS Longtitude $\lambda(t)$. Also measured in degrees
+  \item Roll Angle $\theta_{r}(t)$. Also measured in degrees
+  \item Engine Thrust $e_{i}(t), 0 < i \leq 4$. Measured as a percentage
+\end{enumerate}
+
+The dataset had other fields as well, but they were not used for the model implemented
 
 \section{Constraints}
 
@@ -26,7 +36,7 @@ This implied that plotting polygons with KML would require converting to and fro
 
 \section{Flight Path}
 
-Plotting the flight path is the most straightforward
+Plotting the flight path was the most straightforward operation.
 
 %------------------------------------------------
 
