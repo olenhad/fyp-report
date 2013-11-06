@@ -49,10 +49,9 @@ After researching on rendering methods available I had to choose which method wa
 \item Use Google Earth's javascript API to render the same data.
 \end{enumerate}
 
-After revisiting AAIB's application requirements, I decided that between producing KML and using Google Earth
-s Browser Plugin, generating KML was a significantly better option. The rationale guiding the decision was based on the following factors:
+After revisiting AAIB's application requirements, I decided that between producing KML and using Google Earth's Browser Plugin, generating KML was a significantly better option. The rationale guiding the decision was based on the following factors:
 
 \begin{itemize}
 \item Offline usage. As mentioned before, the browser plugin does not feature offline usage. This is in contrast to rendering KML documents on Google Earth's Desktop client which works well offline. Considering offline usage was an important part of the application requirements, this was a major reason.
-\item Portability. KML is a well defined format that can be rendered on many other earth browsers. Furthermore, the browser plugin is only supported for Windows and Mac OS\citep{google:browser-plugin}. Linux \footnote{Which I am a huge fan of} was not yet supported, and I did not want to add that constraint to the application without good reason. In contrast, Google Earth is supported on Windows, Mac OS and Linux.
+\item Portability. KML is a well defined format that can be rendered on many other earth browsers\citep{ogs:kml}. Furthermore, the browser plugin is only supported for Windows and Mac OS\citep{google:browser-plugin}. Linux \footnote{Which I am a huge fan of} was not yet supported, and I did not want to add that constraint to the application without good reason. In contrast, Google Earth's Desktop Client is supported on Windows, Mac OS and Linux.
 \end{itemize}
