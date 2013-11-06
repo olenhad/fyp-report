@@ -11,7 +11,7 @@ methods to render custom data on Google Earth's platform.
 \section{Keyhole Markup Language}
 
 The Keyhole Markup Language (\emph{KML}) is a subset of XML, used to display geographic data in an Earth Browser, like Google Earth. It uses a tag based structure with nested elements that represent certain geometric
-and descriptive constructs. The KML reference is very reasonably documented with sample code demonstrating it's usage.\\
+and descriptive constructs \citep{google:kml}. The KML reference is very reasonably documented with sample code demonstrating it's usage.\\
 
 KML supports rendering the following features:
 \begin{enumerate}
@@ -27,13 +27,13 @@ However KML is primarily designed as a means to display data, as opposed to perf
 
 \section{Google Earth's Browser Plugin}
 
-With web browsers becoming increasingly powerful and technologies like WebGL that allow efficient 3d rendering on the browser, Google launched the Google Earth Browser Plugin. The browser plugin by itself allows pretty much the similar core functionality as Google Earth's Desktop Application. The primary difference is that the virtual globe can be embedded within an HTML web page.\\
+With web browsers becoming increasingly powerful and technologies like WebGL that allow efficient 3d rendering on the browser, Google launched the Google Earth Browser Plugin\citep{google:browser-plugin}. The browser plugin by itself allows pretty much the similar core functionality as Google Earth's Desktop Application. The primary difference is that the virtual globe can be embedded within an HTML web page.\\
 
 By itself the browser plugin may not seem to accomplish much. However Google also released the Google Earth
 API, a javascript library that provides access to various features in Google Earth. The browser plugin when combined with Google Earth's API becomes a very powerful tool to produce complex applications that render and allow interaction with geographic data. \\
 
 For instance one of the sample toy applications provided as documentation for the API is a car simulator,
-where you drive a car over the virtual globe's surface. \\
+where you drive a car over the virtual globe's surface \citep{google:earth-api}. \\
 
 Such user interactions are possible by combining interactions provided by the DOM, and using them to render models using the Google Earth API. \\
 
@@ -54,5 +54,5 @@ s Browser Plugin, generating KML was a significantly better option. The rational
 
 \begin{itemize}
 \item Offline usage. As mentioned before, the browser plugin does not feature offline usage. This is in contrast to rendering KML documents on Google Earth's Desktop client which works well offline. Considering offline usage was an important part of the application requirements, this was a major reason.
-\item Portability. KML is a well defined format that can be rendered on many other earth browsers. Furthermore, the browser plugin is only supported for Windows and Mac OS. Linux \footnote{Which I am a huge fan of} was not yet supported, and I did not want to add that constraint to the application without good reason. In contrast, Google Earth is supported on Windows, Mac OS and Linux.
+\item Portability. KML is a well defined format that can be rendered on many other earth browsers. Furthermore, the browser plugin is only supported for Windows and Mac OS\citep{google:browser-plugin}. Linux \footnote{Which I am a huge fan of} was not yet supported, and I did not want to add that constraint to the application without good reason. In contrast, Google Earth is supported on Windows, Mac OS and Linux.
 \end{itemize}

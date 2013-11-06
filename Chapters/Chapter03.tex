@@ -6,22 +6,22 @@
 
 This decision took a while. And rightfully so, as it would affect all decisions from that point. Choosing the right language and framework could have more than substantial effects on the system's architecture.\\
 
-After quite a bit of research and debate, I decided to implement the system using \spacedlowsmallcaps{clojure}, a relatively new lisp class language than runs on the JVM.
+After quite a bit of research and debate, I decided to implement the system using \spacedlowsmallcaps{clojure}, a relatively new lisp class language than runs on the JVM \citep{clojure:features}.
 
 \section{Clojure}
 
 The choice of implementing this project in clojure may seem peculiar. However there are a number of features that clojure and it's ecosystem that fit very well with this particular project. Before jumping to those features, a quick overview of clojure is in order.\\
 
-Clojure is a lisp dialect, created by Rich Hickey. It is a general-purpose, functional programming language that runs on the Java Virtual Machine (JVM) \footnote{Clojure runs in other environments like Microsoft's Common Language Runtime (CLR) and Javascript engines as well}. Clojure focuses on programming with immutable data structures and provides a number of persistent hash-trie based data structures that allow efficient functional programming.\\
+Clojure is a lisp dialect, created by Rich Hickey. It is a general-purpose, functional programming language that runs on the Java Virtual Machine (JVM) \footnote{Clojure runs in other environments like Microsoft's Common Language Runtime (CLR) and Javascript engines as well}. Clojure focuses on programming with immutable data structures and provides a number of persistent hash-trie based data structures that allow efficient functional programming \citep{clojure:ds}.\\
 
-Clojure was designed to be a real world language, as opposed to a purely academic one. Therefore it integrates seamlessly with it's host environment. For the JVM that means java interoperability is very straightforward. This also means that all existing libraries and frameworks for Java can be used with Clojure.\\
+Clojure was designed to be a real world language, as opposed to a purely academic one. Therefore it integrates seamlessly with it's host environment. For the JVM that means java interoperability is very straightforward \citep{clojure:interop}. This also means that all existing libraries and frameworks for Java can be used with Clojure.\\
 
 The decision to choose Clojure as the main language for implementing this project was based on the
 following features of clojure
 
 \subsection{Functional Programming}
 
-Clojure is foremost a functional programming language. That means the core logic of any application is implemented as a series of pure functions that return immutable values. Pure here means that functions do not return different values for the same set of inputs. The paradigm also involves treating functions as first class members that can be passed around as values. \\
+Clojure is foremost a functional programming language. That means the core logic of any application is implemented as a series of pure functions that return immutable values. Pure here means that functions do not return different values for the same set of inputs. The paradigm also involves treating functions as first class members that can be passed around as values \citep{joyofclojure}. \\
 
 As mentioned before, my strategy to rendering the data was to convert it into an appropriate form in KML. This operation in essense is a pure function that consumes a set of inputs and performs several transformations on it to return a KML document. \\
 
@@ -33,20 +33,20 @@ Furthermore clojure idioms encourage the use of higher order functions that make
 
 Library support is probably one of the most important factors in deciding the stack for any project. Since part of the system involved generating xml, a fast, xml processing library was a must. Similarly, on the parsing side, even though parsing csv files is trivial, the parsing needed to be done in a performant manner, especially when the data sets might be very large. Also, the input data format could change in other scenarios, and having a decent set of parsing tools for more advanced grammars (JSON, XML) makes a lot of sense.\\
 
-On both counts clojure scores very well. In terms of xml processing, clojure.data.xml provides  a decently documented, clean api which can lazily parse and generate large xml documents. Under the hood its uses Java's STAX library.\\
+On both counts clojure scores very well. In terms of xml processing, clojure.data.xml provides  a decently documented, clean api which can lazily parse and generate large xml documents. Under the hood its uses Java's STAX library \citep{clojure:data.xml}.\\
 
-But in addition to xml generation and parsing, clojure also provides a very neat library called clojure.data.zip for performing queries and transforms on generic tree like structures. clojure.data.zip, as the name suggests uses Zippers to functionally traverse and modify trees.\\
+But in addition to xml generation and parsing, clojure also provides a very neat library called clojure.data.zip for performing queries and transforms on generic tree like structures. clojure.data.zip, as the name suggests uses Zippers to functionally traverse and modify trees \citep{clojure:data.zip}.\\
 
 
 \subsection{Domain Specific Languages}
 
 Building Domain Specific Languages (DSLs) is where lisp like languages are reputed to shine. Lisp's homoiconicity, and the ability to treat code as data helps quite a bit here. Clojure is no exception to this rule, and features many rich DSLs.\\
 
-The need for a DSL particularly arose when dealing with XML generation. As the application required generating KML, which is a subset of XML, finding a tool that eases it's generation was paramount. XML by itself is not ``designed for humans''. The syntax is verbose, repetitive and prone to errors.\\
+The need for a DSL particularly arose when dealing with XML generation. As the application required generating KML, which is a subset of XML, finding a tool that eases it's generation was paramount. XML by itself is not ``designed for humans'' \citep{ch:xml}. The syntax is verbose, repetitive and prone to errors.\\
 
 Representing XML data as raw strings can be incredibly messy and error prone, as there is no way to gurantee the validity of document structure. Forgetting or misplacing closing tags can lead to bugs, that would be very difficult to find if the generated XML document is complex. Considering the application was meant to generate reasonably complex KML documents, using raw strings was to be avoided at all costs.\\
 
-Enter Hiccup, a very popular DSL that represents XML using clojure's vectors and hash-maps. Although originally just designed for HTML, the DSL became so popular that most of clojure's XML libraries support it. \\
+Enter Hiccup, a very popular DSL that represents XML using clojure's vectors and hash-maps \citep{clj:hiccup}. Although originally just designed for HTML, the DSL became so popular that most of clojure's XML libraries support it. \\
 
 The following snippet compares raw KML with the equivalent Hiccup representation:\\
 

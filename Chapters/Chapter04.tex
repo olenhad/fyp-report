@@ -24,7 +24,7 @@ The dataset had other fields as well, but they were not used for the model imple
 
 \section{Constraints}
 
-A constraint that choosing KML placed on the model was that any coordinate could only be represented withe following dimensions:
+A constraint that choosing KML placed on the model was that any coordinate could only be represented withe following dimensions\citep{google:kml}:
 \begin{enumerate}
 \item Latitude ($\phi$)
 \item Longtitude ($\lambda$)
@@ -63,7 +63,7 @@ The wings could be modelled using KML's Polygon type. However, as mentioned befo
 
 \subsection{Distance}
 
-Finding the distance between two latlong points is an essential operation. For this application I used the Haversine Formula, which works was follows:
+Finding the distance between two latlong points is an essential operation. For this application I used the Haversine Formula, which works was follows\citep{latlong}:
 \begin{equation}
   a = \sin^2(\Delta\phi/2) + \cos(\phi_{1}) \cos(\phi_{2})\sin^2(\Delta\lambda/2)
 \end{equation}
@@ -79,7 +79,7 @@ The Haversine distance gives the shortest distance between both points over the 
 
 \subsection{Bearing}
 
-Bearing $\theta$ between two latlong points $\left\{\phi_{1},\lambda_{1}\right\}$ and $\left\{\phi_{2},\lambda_{2}\right\}$ can be calculated with the following method: \\
+Bearing $\theta$ between two latlong points $\left\{\phi_{1},\lambda_{1}\right\}$ and $\left\{\phi_{2},\lambda_{2}\right\}$ can be calculated with the following method\citep{latlong}: \\
 % atan2( sin(Δλ).cos(φ2), cos(φ1).sin(φ2) − sin(φ1).cos(φ2).cos(Δλ) )
 %\begin{equation}
 $
@@ -93,7 +93,7 @@ Bear in mind, this bearing is the initial bearing, also referred to as the forwa
 
 Probably the most useful concept in terms of generating KML. Representing any polygon in KML would require calculating a point's latlong coordinates when given a distange range and bearing. \\
 
-To calculate the coordinates $\left\{ \phi_{2},\lambda_{2}\right\}$ located a distance $d$ from point $\left\{ \phi_{1},\lambda_{1}\right\}$ at a bearing of $\theta$, the following can be used:
+To calculate the coordinates $\left\{ \phi_{2},\lambda_{2}\right\}$ located a distance $d$ from point $\left\{ \phi_{1},\lambda_{1}\right\}$ at a bearing of $\theta$, the following can be used\citep{latlong}:
 
 \begin{equation}
 % asin( sin(φ1)*cos(d/R) + cos(φ1)*sin(d/R)*cos(θ) )
