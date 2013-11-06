@@ -1,0 +1,31 @@
+\chapter{Testing Methodology}
+
+Testing for the application took place in 3 main stages. Clojure comes built in with a test framework called clojure.test which was mainly used.
+
+\section{Unit Tests}
+
+Unit tests were particularly important for functions within the \lstinline{math} namespace. The primary reason was because the entire generation component depended on mathematical model being implemented properly. \\
+
+The unit tests also gave an indication of how numerically stable the computations were, especially when dealing with very small distances, or angles that were multiples of $\pi$. As clojure automatically shifted to using java's BigDecimal type when dealing with high precision numbers, thankfully the calculations did not face major numerical instabilities.\\
+
+Unit tests were also used for the parsing stage. This stage was even easier to unit test, primarily because the functionality was relatively simple. The major edge cases I had to consider were cases where input was malformed or corrupted, and to fail gracefully when encountering such cases. \\
+
+However, unit testing the KML generation was not straight forward. The primary reason is that because the application generates a visualization, it is difficult to assess it's validity programmatically, aside from checking for trivial things like coordinates being non empty.
+
+\section{Integration Tests}
+
+Integration tests fell under two main categories:
+
+\begin{enumerate}
+\item Testing the parsing and generation components together. Inputs were fed into both components without the UI to test whether these two subsystems integrated properly. Part of this test included checking for correct error handling when given incorrect or corrupt csv inputs. It also included checking for visualizations when several data points were missing. \\
+Sadly however, checking the KML output could not be automated and had to be done manually for this stage.
+\item Testing all the UI components with the UI flow without coupling them to the application core. Seesaw's selectors made this much easier than I anticipated.
+\end{enumerate}
+
+\section{Blackbox Tests}
+
+Testing the entire system was once again something that could not be automated, except for trivial cases, as the system produced a visualization that necessitated manual inspection. \\
+
+To make black box testing easier, I made a list of test cases that I would manually replicate, where I would test for incorrect input files, mistyped field names, and impossible engine configurations, and check whether the UI displayed errors in these cases. \\
+
+One limitation to extensive testing was that I was only given one dataset by AAIB to use for development. Having more datasets would have allowed me to test for more cases.

@@ -123,6 +123,12 @@ Under the hood, this launches a call to the \lstinline{csv/analyze-headers!} on 
 \item The user fills up any missing fields, or corrects fields that may have been detected wrong.
 \item The user chooses colors for each of the components. Clicking on colored button next to the component name launches a color picker, where the user can choose a new color for that component.
 \item Lastly, the user fills up the engine configuration. This specifies which engine is on which wing.
-\item The user hits submit.
-\item If the file, the user selected was valid
+\item The user hits submit. The KML generation is triggered asynchronously, once again to prevent the UI from freezing.
+\item If the file, the user selected was valid and contained the fields specified, the user should see a label with ``Success!''. Otherwise it pops an alert with an error message.
 \end{enumerate}
+
+\begin{figure}[h]
+\centering
+  \includegraphics[scale=0.5]{gfx/ui-success.png}
+\caption{Success notification}
+\end{figure}

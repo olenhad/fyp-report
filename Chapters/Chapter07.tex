@@ -1,0 +1,20 @@
+\chapter{Conclusion}
+
+\section{Summary}
+
+The project started off with what seemed to be a complex problem. The problem was to map raw aircraft attitude data into a form that could be visualised easily. What really helped here though was having a good mental image of what I was expected to render. \\
+
+The next stage was to model this mental image when given the constraints of the output form. As I had chosen KML to render this data, I had to represent whatever images I had in mind, in terms of KML elements. This was intially difficult as I had to visualize simple geometric constructs like lines and polygons in spherical coordinates. \\
+
+However, after researching and finding ways to transform spherical coordinates by distance and bearing, the next steps were easy. \\
+
+Implementation wise, building this system in a language that favored REPL based development, helped me experiment and move quickly with ideas. Furthermore, using well developed DSLs like Hiccup in Clojure made my work significantly easier. \\
+
+\section{Further Work}
+
+Although the project fulfilled the features AAIB requested, it can be improved further. A few features, in my opinion that the current visualisation lacks are:
+\begin{itemize}
+\item Displaying an aircraft's pitch. This is actualy quite simple to add. For each data point, one could add a line representing the pitch angle, that would run through the aircraft's lateral axis.
+\item Displaying an aircraft's yaw. This would be slightly difficult to visualize with the current scheme of things. The difficult would lie in visually differentiating between the yaw and heading, which currenly display on the same axis.
+\item Finding a method to overlay data when the user places his mouse over a data point. I actually tried implementing this, but because KML is not designed for complex interactions like mouseover events, this particular feature is not possible with just KML. An alternative could be to launch a description modal when clicking a data point, but with a large number of data points this could look very messy.
+\end{itemize}
